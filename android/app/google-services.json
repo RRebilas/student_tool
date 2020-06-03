@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "704029791791",
+    "firebase_url": "https://studenttool-7248d.firebaseio.com",
+    "project_id": "studenttool-7248d",
+    "storage_bucket": "studenttool-7248d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704029791791:android:df43bc76364924620858da",
+        "android_client_info": {
+          "package_name": "com.rrebilas.studenttol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704029791791-sifo5sjkkql8gsduilssh1pe8lo50udj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBp3joa5zCl7CvJ_KSSrfePnck_xLAEKhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704029791791-sifo5sjkkql8gsduilssh1pe8lo50udj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
