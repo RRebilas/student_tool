@@ -1,7 +1,7 @@
 import 'dart:collection';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 int currentIndex = 0;
 List<Task> _tasks = [];
@@ -29,7 +29,6 @@ class Task {
   Task(this.title) : this.id = currentIndex;
 
   @override
-  // TODO: implement hashCode
   int get hashCode => id;
 
   @override
