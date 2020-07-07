@@ -15,8 +15,7 @@ class Authentication {
   // sing in anonymously
   Future anonymous() async {
     try {
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
+      final FirebaseUser user = (await _auth.signInAnonymously()).user;
       return _firebaseUser(user);
     } catch (e) {
       print(e.toSting());
@@ -24,10 +23,24 @@ class Authentication {
     }
   }
 
-//  TODO: implement button to signing out
+// singing out
   Future signOut() async {
     try {
       return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
+}
+
+class EmailAuth extends Authentication {
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+              email: email, password: password))
+          .user;
+      return _firebaseUser(user);
     } catch (e) {
       print(e.toString());
       return null;

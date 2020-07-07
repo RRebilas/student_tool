@@ -35,7 +35,7 @@ class AuthPage extends StatelessWidget {
                       BoxShadow(color: Colors.black54, blurRadius: 10),
                     ],
                   ),
-                  height: 400,
+                  height: 500,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(

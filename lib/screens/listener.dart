@@ -8,7 +8,7 @@ import 'AppScreen.dart';
 class AuthListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = context.watch<User>();
 
     return (user == null) ? AuthPage() : AppScreen();
   }
