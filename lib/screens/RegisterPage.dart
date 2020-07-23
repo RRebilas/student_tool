@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:studenttool/authenticate/authenticate.dart';
+import 'package:studenttool/widgets/common_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _registerFormKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _emailAuth = EmailAuth();
 
   TextEditingController _email = TextEditingController();
   TextEditingController _password = TextEditingController();
@@ -57,36 +60,40 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           SizedBox(height: 30),
                           formField("Email", (email) {
+                            //TODO: change way of checking email from after submit to after leaving textfield
                             return (EmailValidator.validate(email))
                                 ? null
                                 : "Email jest nieprawidłowy";
-                          }, false, controller: _email),
+                          }, controller: _email),
                           formField("Hasło", (password) {
                             if (password.length >= 6) {
                               return null;
                             }
                             return "Hasło jest za krótkie(min. 6 znaków)";
-                          }, true, controller: _password),
+                          }, password: true, controller: _password),
                           formField("Powtórz hasło", (password) {
                             return (password == _password.text)
                                 ? null
                                 : "Hasła się nie zgadzają";
-                          }, true),
+                          }, password: true),
                           RaisedButton(
                             child: Text("Zarejestruj"),
                             onPressed: () async {
                               if (_registerFormKey.currentState.validate()) {
-                                dynamic result = await EmailAuth()
+                                await _emailAuth
                                     .registerWithEmailAndPassword(
-                                        _email.text, _password.text);
-                                if (result == null) {
-                                  _scaffoldKey.currentState
-                                      .showSnackBar(SnackBar(
-                                    content: Text(
-                                        "Użyty email isntieje w bazie danych, użyj innego"),
-                                    duration: Duration(seconds: 5),
-                                  ));
-                                }
+                                        _email.text, _password.text)
+                                    .catchError(
+                                  (e) {
+                                    _scaffoldKey.currentState
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          "${(e is PlatformException) ? e.message : "Something went wrong."}"),
+                                    ));
+                                  },
+                                ).then((value) {
+                                  if (value != null) Navigator.pop(context);
+                                });
                               }
                             },
                           ),
@@ -110,22 +117,10 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget formField(String label, Function validator, bool password,
-      {TextEditingController controller}) {
-    return Column(
-      children: <Widget>[
-        TextFormField(
-          textAlign: TextAlign.center,
-          decoration: InputDecoration(
-              labelText: label,
-              contentPadding: const EdgeInsets.all(0),
-              errorStyle: TextStyle(color: Colors.red)),
-          validator: validator,
-          obscureText: password,
-          controller: controller ??= null,
-        ),
-        SizedBox(height: 30),
-      ],
-    );
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
   }
 }

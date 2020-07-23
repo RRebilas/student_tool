@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studenttool/authenticate/authenticate.dart';
 import 'package:studenttool/models/ToDoModel.dart';
+import 'package:studenttool/models/user.dart';
 import 'package:studenttool/widgets/Blueprint.dart';
 import 'package:studenttool/widgets/Home.dart';
 import 'package:studenttool/widgets/Schedule.dart';
@@ -27,6 +28,8 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<User>();
+
     return Scaffold(
       body: PageView(
         controller: _controller,
@@ -40,14 +43,19 @@ class _AppScreenState extends State<AppScreen> {
               body: ToDo(),
             ),
           ),
+          //TODO: implement user-info page
           Container(
-            child: Center(
-              child: RaisedButton(
-                child: Text('Wyloguj'),
-                onPressed: () async {
-                  await _auth.signOut();
-                },
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Nazwa: ${user.email}"),
+                RaisedButton(
+                  child: Text('Wyloguj'),
+                  onPressed: () async {
+                    await _auth.signOut();
+                  },
+                ),
+              ],
             ),
           ),
           //Blueprint(title: 'Profile Page', body: Container()),

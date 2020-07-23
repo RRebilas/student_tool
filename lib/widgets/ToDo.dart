@@ -14,6 +14,7 @@ class ToDo extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             child: Consumer<ToDoModel>(
               builder: (context, task, child) => ListView.builder(
+                  scrollDirection: Axis.horizontal,
                   itemCount: task.tasks.length,
                   itemBuilder: (context, index) {
                     try {
@@ -22,7 +23,7 @@ class ToDo extends StatelessWidget {
                         onDismissed: (direction) {
                           //TODO: swipe right to complete task and move it to completed DraggableScrollableSheet
                           //TODO: swipe left to display icon to delete task, maybe click for details with menu to edit task
-                          taskProvider.remove(index);
+                          taskProvider.removeItem(index);
                         },
                         child: ListTile(
                           leading: Container(
@@ -51,7 +52,7 @@ class ToDo extends StatelessWidget {
               tooltip: 'Utwórz',
               backgroundColor: Colors.deepPurple.shade900,
               onPressed: () {
-                taskProvider.add(Task('Zadanie'));
+                taskProvider.addItem(Task('Zadanie'));
               },
               label: Text('Utwórz'),
               icon: const Icon(Icons.add),

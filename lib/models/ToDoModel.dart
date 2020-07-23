@@ -3,34 +3,55 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-int currentIndex = 0;
-List<Task> _tasks = [];
-
 class ToDoModel with ChangeNotifier {
-  UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
+  UnmodifiableListView<Task> get tasks => UnmodifiableListView(Task.tasks);
 
-  void add(Task task) {
-    _tasks.add(task);
-    currentIndex++;
+  void addItem(dynamic item) {
+    if (item is Task) {
+      Task.add(item);
+    } else {
+      Category.add(item);
+    }
     notifyListeners();
   }
 
-  void remove(int index) {
-    _tasks.removeAt(index);
-    currentIndex--;
+  void removeItem(index) {
+    Task.remove(index);
     notifyListeners();
   }
 }
 
 class Task {
+  static int currentIndex = 0;
+  static List<Task> tasks = [];
+
   final int id;
-  final String title;
+  String title;
 
   Task(this.title) : this.id = currentIndex;
 
-  @override
-  int get hashCode => id;
+  static void add(Task t) {
+    tasks.add(t);
+    currentIndex++;
+  }
 
-  @override
-  bool operator ==(Object other) => other is Task && other.id == id;
+  static void remove(index) {
+    tasks.removeAt(index);
+    currentIndex--;
+  }
+}
+
+class Category {
+  static int currentIndex = 0;
+  static List<Category> categories = [];
+
+  final int id;
+  String title;
+
+  Category(this.title) : this.id = currentIndex;
+
+  static void add(Category c) {
+    categories.add(c);
+    currentIndex++;
+  }
 }

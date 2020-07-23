@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "704029791791-am9394ehj8otoda3as203i0trl9ps2jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rrebilas.studenttol",
+            "certificate_hash": "adf69982eb3f792d2ea5602203e4cd9b9e61e32a"
+          }
+        },
+        {
           "client_id": "704029791791-sifo5sjkkql8gsduilssh1pe8lo50udj.apps.googleusercontent.com",
           "client_type": 3
         }
