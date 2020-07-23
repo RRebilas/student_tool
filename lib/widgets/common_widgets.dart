@@ -23,3 +23,12 @@ Widget errorContainer(String content) {
     ),
   );
 }
+
+LinearGradient appGradient() {
+  return LinearGradient(
+    colors: [Color.fromRGBO(245, 56, 3, 1), Color.fromRGBO(245, 208, 32, 1)],
+    begin: FractionalOffset.topLeft,
+    end: FractionalOffset.bottomRight,
+    tileMode: TileMode.clamp,
+  );
+}

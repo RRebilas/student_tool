@@ -6,7 +6,7 @@ import 'package:studenttool/models/user.dart';
 import 'package:studenttool/widgets/Blueprint.dart';
 import 'package:studenttool/widgets/Home.dart';
 import 'package:studenttool/widgets/Schedule.dart';
-import 'package:studenttool/widgets/ToDo.dart';
+import 'ToDo.dart';
 
 class AppScreen extends StatefulWidget {
   @override
@@ -38,10 +38,7 @@ class _AppScreenState extends State<AppScreen> {
           Blueprint(title: 'Schedule', body: Schedule()),
           ChangeNotifierProvider<ToDoModel>(
             create: (context) => ToDoModel(),
-            child: Blueprint(
-              title: 'To Do',
-              body: ToDo(),
-            ),
+            child: ToDo(),
           ),
           //TODO: implement user-info page
           Container(
@@ -76,7 +73,7 @@ class _AppScreenState extends State<AppScreen> {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: currentNavigationBarIndex,
-      backgroundColor: Colors.deepPurple.shade900,
+      backgroundColor: Colors.deepOrange.shade800,
       unselectedItemColor: Colors.white,
       selectedItemColor: Colors.white,
       onTap: (index) => setState(() {

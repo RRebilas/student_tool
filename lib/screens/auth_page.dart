@@ -26,15 +26,7 @@ class _AuthPageState extends State<AuthPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(245, 56, 3, 1),
-              Color.fromRGBO(245, 208, 32, 1)
-            ],
-            begin: FractionalOffset.topLeft,
-            end: FractionalOffset.bottomRight,
-            tileMode: TileMode.clamp,
-          ),
+          gradient: appGradient(),
         ),
         child: Container(
           child: Center(
