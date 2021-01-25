@@ -4,24 +4,30 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ToDoModel with ChangeNotifier {
-  UnmodifiableListView<Task> get tasks => UnmodifiableListView(Task.tasks);
+  UnmodifiableListView<Task> get getTasks => UnmodifiableListView(Task.tasks);
+
+  UnmodifiableListView<Category> get getCategories =>
+      UnmodifiableListView(Category.categories);
 
   void addItem(dynamic item) {
-    if (item is Task) {
-      Task.add(item);
+    if (item is Category) {
+      Category.categories.insert(0, item);
+      Category.currentIndex++;
     } else {
-      Category.add(item);
+      Task.tasks.add(item);
+      Task.currentIndex++;
     }
     notifyListeners();
   }
 
   void removeItem(index) {
-    Task.remove(index);
+    Task.tasks.removeAt(index);
+    Task.currentIndex--;
     notifyListeners();
   }
 }
 
-class Task {
+class Task extends ToDoModel {
   static int currentIndex = 0;
   static List<Task> tasks = [];
 
@@ -29,29 +35,14 @@ class Task {
   String title;
 
   Task(this.title) : this.id = currentIndex;
-
-  static void add(Task t) {
-    tasks.add(t);
-    currentIndex++;
-  }
-
-  static void remove(index) {
-    tasks.removeAt(index);
-    currentIndex--;
-  }
 }
 
-class Category {
+class Category extends ToDoModel {
   static int currentIndex = 0;
-  static List<Category> categories = [];
+  static List<Category> categories = [Category("Add category")];
 
   final int id;
   String title;
 
   Category(this.title) : this.id = currentIndex;
-
-  static void add(Category c) {
-    categories.add(c);
-    currentIndex++;
-  }
 }

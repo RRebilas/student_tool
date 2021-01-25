@@ -1,7 +1,7 @@
 export 'package:flutter/material.dart';
-export 'package:bottom_navy_bar/bottom_navy_bar.dart';
+export 'package:google_fonts/google_fonts.dart';
+
+export 'screens/ToDo.dart';
+export 'widgets/Blueprint.dart';
 export 'widgets/Home.dart';
 export 'widgets/Schedule.dart';
-export 'screens/ToDo.dart';
-export 'package:google_fonts/google_fonts.dart';
-export 'widgets/Blueprint.dart';

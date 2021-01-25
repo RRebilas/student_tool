@@ -5,7 +5,7 @@ class Schedule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('Schedule site from uek'),
+        child: Text('Schedule screen'),
       ),
     );
   }

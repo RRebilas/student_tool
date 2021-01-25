@@ -6,19 +6,19 @@ import 'package:studenttool/models/user.dart';
 class Authentication with ChangeNotifier {
   final FirebaseAuth _authInstance = FirebaseAuth.instance;
 
-  User _firebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid, email: user.email) : null;
+  AppUser _firebaseUser(User user) {
+    return user != null ? AppUser(uid: user.uid, email: user.email) : null;
   }
 
-  Stream<User> get userStream {
-    return _authInstance.onAuthStateChanged.map(_firebaseUser);
+  Stream<AppUser> get userStream {
+    return _authInstance.authStateChanges().map(_firebaseUser);
   }
 
   // sing in anonymously
-  Future<User> anonymous() async {
-    return (await _authInstance
+  Future<AppUser> anonymous() async {
+    return await _authInstance
         .signInAnonymously()
-        .then((result) => _firebaseUser(result.user)));
+        .then((result) => _firebaseUser(result.user));
   }
 
 // singing out
@@ -26,32 +26,32 @@ class Authentication with ChangeNotifier {
 }
 
 class EmailAuth extends Authentication {
-  Future<User> registerWithEmailAndPassword(
+  Future<AppUser> registerWithEmailAndPassword(
           String email, String password) async =>
       await _authInstance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((result) => _firebaseUser(result.user));
 
-  Future<User> loginWithEmailAndPassword(String email, String password) async =>
+  Future<AppUser> loginWithEmailAndPassword(
+          String email, String password) async =>
       await _authInstance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((result) => _firebaseUser(result.user));
 
 //TODO: implement email verification
-  Future sendVerificationEmail() async => await _authInstance
-      .currentUser()
-      .then((value) => value.sendEmailVerification());
+  Future sendVerificationEmail() async =>
+      await _authInstance.currentUser.sendEmailVerification();
 }
 
 class GoogleAuth extends Authentication {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<User> handleSignIn() async {
+  Future<AppUser> handleSignIn() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
 
     return await _authInstance

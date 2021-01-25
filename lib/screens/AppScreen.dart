@@ -6,6 +6,7 @@ import 'package:studenttool/models/user.dart';
 import 'package:studenttool/widgets/Blueprint.dart';
 import 'package:studenttool/widgets/Home.dart';
 import 'package:studenttool/widgets/Schedule.dart';
+
 import 'ToDo.dart';
 
 class AppScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<User>();
+    final user = context.watch<AppUser>();
 
     return Scaffold(
       body: PageView(
@@ -45,9 +46,9 @@ class _AppScreenState extends State<AppScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Nazwa: ${user.email}"),
+                Text("Username: ${user.email ?? 'Guest'}"),
                 RaisedButton(
-                  child: Text('Wyloguj'),
+                  child: Text('Sing out'),
                   onPressed: () async {
                     await _auth.signOut();
                   },
@@ -83,23 +84,18 @@ class _AppScreenState extends State<AppScreen> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text('Home'),
+          label: "Home",
         ),
+        BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Schedule'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          title: Text('Schedule'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.format_list_bulleted),
-          title: Text('To Do'),
-        ),
+            icon: Icon(Icons.format_list_bulleted), label: 'To Do'),
         BottomNavigationBarItem(
           icon: CircleAvatar(
             backgroundImage:
                 NetworkImage('https://www.w3schools.com/howto/img_avatar.png'),
             radius: 20,
           ),
-          title: Text('Profile'),
+          label: 'Profile',
         ),
       ],
     );
