@@ -7,11 +7,7 @@ class ToDoModel with ChangeNotifier {
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(Task.tasks);
 
   void addItem(dynamic item) {
-    if (item is Task) {
-      Task.add(item);
-    } else {
-      Category.add(item);
-    }
+    (item is Task) ? Task.add(item) : Category.add(item);
     notifyListeners();
   }
 

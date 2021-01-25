@@ -48,28 +48,26 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            child: Text('Zarejestruj się przy użyciu e-mail'),
+                            child: Text('Sign up using email'),
                           ),
                           SizedBox(height: 30),
                           formField("Email", (email) {
                             //TODO: change way of checking email from after submit to after leaving textfield
                             return (EmailValidator.validate(email))
                                 ? null
-                                : "Email jest nieprawidłowy";
+                                : "Email in invalid";
                           }, controller: _email),
-                          formField("Hasło", (password) {
-                            if (password.length >= 6) {
-                              return null;
-                            }
-                            return "Hasło jest za krótkie(min. 6 znaków)";
+                          formField("Password", (password) {
+                            if (password.length >= 6) return null;
+                            return "Password is to short(min. 6 chars)";
                           }, password: true, controller: _password),
-                          formField("Powtórz hasło", (password) {
+                          formField("Repeat password", (password) {
                             return (password == _password.text)
                                 ? null
-                                : "Hasła się nie zgadzają";
+                                : "Passwords don't match each other";
                           }, password: true),
                           RaisedButton(
-                            child: Text("Zarejestruj"),
+                            child: Text("Sign up"),
                             onPressed: () async {
                               if (_registerFormKey.currentState.validate()) {
                                 await _emailAuth
@@ -94,7 +92,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Powrót do strony logowania'),
+                            child: Text('Go back to login page'),
                           ),
                         ],
                       ),
