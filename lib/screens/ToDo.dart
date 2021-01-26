@@ -21,36 +21,34 @@ class ToDo extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: appGradient(),
               ),
-              child: Scrollbar(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 40),
-                  child: Scrollbar(
-                    child: Consumer<ToDoModel>(
-                      builder: (context, categories, child) => ListView.builder(
-                        itemCount: categories.getCategories.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          Category item = categories.getCategories[index];
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: GestureDetector(
-                              child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                child: Container(
-                                  color: Colors.white,
-                                  width: 120,
-                                  child: Center(child: Text(item.title)),
-                                ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 40),
+                child: Scrollbar(
+                  child: Consumer<ToDoModel>(
+                    builder: (context, categories, child) => ListView.builder(
+                      itemCount: categories.getCategories.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        Category item = categories.getCategories[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: GestureDetector(
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              child: Container(
+                                color: Colors.white,
+                                width: 120,
+                                child: Center(child: Text(item.title)),
                               ),
-                              onTap: () {
-                                if (categories.getCategories[index].id == 0)
-                                  taskProvider.addItem(Category('new'));
-                              },
                             ),
-                          );
-                        },
-                      ),
+                            onTap: () {
+                              if (index == categories.getCategories.length - 1)
+                                taskProvider.addItem(Category('new'));
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
