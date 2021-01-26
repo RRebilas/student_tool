@@ -84,12 +84,18 @@ class _AppScreenState extends State<AppScreen> {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
+<<<<<<< HEAD
           label: "Home",
+=======
+          // ignore: deprecated_member_use
+          title: Text('Home'),
+>>>>>>> aed18d2dd686f39f0b588244c1b65f7298357499
         ),
         BottomNavigationBarItem(icon: Icon(Icons.school), label: 'Schedule'),
         BottomNavigationBarItem(
             icon: Icon(Icons.format_list_bulleted), label: 'To Do'),
         BottomNavigationBarItem(
+<<<<<<< HEAD
           icon: CircleAvatar(
             backgroundImage:
                 NetworkImage('https://www.w3schools.com/howto/img_avatar.png'),
@@ -97,6 +103,14 @@ class _AppScreenState extends State<AppScreen> {
           ),
           label: 'Profile',
         ),
+=======
+            icon: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://www.w3schools.com/howto/img_avatar.png'),
+              radius: 20,
+            ),
+            label: 'Profile'),
+>>>>>>> aed18d2dd686f39f0b588244c1b65f7298357499
       ],
     );
   }
